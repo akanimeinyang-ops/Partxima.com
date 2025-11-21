@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>PartXima — Automotive Parts</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --black: #0b0b0b;
+      --muted: #f2f2f2;
+      --burnt: #c46a1f;
+      --accent: #f5a623;
+      --deep-yellow: #b8860b;
+      --maxw: 1100px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      margin: 0;
+      color: var(--black);
+      background: var(--bg);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    html { scroll-behavior: smooth; }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 15px;
+      max-width: var(--maxw);
+      margin: 0 auto;
+      position: relative;
+      z-index: 1000;
+    }
+    .logo img { height: 60px; width: auto; }
+
+    .hamburger {
+      width: 28px;
+      height: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      z-index: 1001;
+    }
+    .hamburger span {
+      display: block;
+      height: 3px;
+      background: var(--black);
+      border-radius: 3px;
+      transition: 0.3s;
+    }
+
+    .nav-menu {
+      position: absolute;
+      top: 100%;
+      right: 15px;
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 6px;
+      border-radius: 6px;
+      padding: 8px 0;
+      display: none;
+      flex-direction: column;
+      min-width: 140px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .nav-menu a {
+      padding: 12px 20px;
+      text-decoration: none;
+      color: var(--black);
+      font-size: 15px;
+      font-weight: 500;
+    }
+    .nav-menu a:hover {
+      background: var(--burnt);
+      color: #fff;
+    }
+    .nav-menu.show { display: flex; }
+
+    .hero {
+      position: relative;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: url('assets/Supercharging%20access%20to_20251028_202754_0000%5B1%5D.jpg') center/cover no-repeat;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+      z-index: 1;
+    }
+    .hero .center {
+      position: relative;
+      z-index: 2;
+      padding: 15px;
+    }
+    .cta {
+      background: var(--accent);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 40px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 17px;
+      min-width: 240px;
+    }
+
+    .features {
+      max-width: var(--maxw);
+      margin: 20px auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      padding: 0 12px;
+      text-align: center;
+    }
+    .feature {
+      background: #fff;
+      border-radius: 8px;
+      padding: 16px;
+      border: 1px solid #eee;
+    }
+    .feature h4 {
+      margin: 0;
+      font-size: 13px;
+      letter-spacing: 1.4px;
+      color: #555;
+      text-transform: uppercase;
+    }
+    .feature .highlight {
+      color: var(--accent);
+      font-weight: 700;
+      margin-top: 8px;
+      display: block;
+      font-size: 15px;
+    }
+
+    .middle {
+      max-width: var(--maxw);
+      margin: 30px auto;
+      padding: 0 15px;
+      display: flex;
+      gap: 25px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .map-wrap { flex: 0 0 220px; }
+    .map-image {
+      max-width: 100%;
+      height: auto;
+      max-height: 360px;
+      border-radius: 20% 24% 32% 24% / 32% 20% 28% 24%;
+      object-fit: cover;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .content-right { flex: 1; text-align: center; }
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: #777;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .headline {
+      font-size: 26px;
+      line-height: 1.3;
+      margin: 10px 0;
+      font-weight: 700;
+    }
+    .sub {
+      color: var(--deep-yellow);
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      margin: 12px 0 20px;
+    }
+
+    /* ←← ORIGINAL PARTNERS BOX (exactly as you had it before) */
+    .partners {
+      margin-top: 12px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+      background: #333333;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    .partner-logo {
+      max-width: 80px;
+      height: auto;
+    }
+    /* ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←← */
+
+    /* ←← ORIGINAL FOOTER STYLE */
+    footer {
+      background: var(--black);
+      color: #fff;
+      padding: 15px 10px;
+      margin-top: 20px;
+    }
+    .fwrap {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+    }
+    .left-links {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .left-links a {
+      color: #fff;
+      text-decoration: none;
+      opacity: 0.9;
+      font-size: 12px;
+    }
+    .contact {
+      text-align: center;
+      line-height: 1.7;
+    }
+    .copyright {
+      margin-top: 10px;
+      color: #cfcfcf;
+      font-size: 10px;
+    }
+
+    @media (min-width: 600px) {
+      .middle { flex-direction: row; }
+      .content-right { text-align: left; }
+      .fwrap { flex-direction: row; justify-content: space-between; }
+    }
+    @media (min-width: 900px) {
+      .hero { min-height: 700px; }
+      .features { grid-template-columns: repeat(4,1fr); }
+      .headline { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="assets/image-removebg-preview (13).png" alt="PartXima Logo">
+    </div>
+    <div class="hamburger" id="hb">
+      <span></span><span></span><span></span>
+    </div>
+    <nav class="nav-menu" id="navMenu">
+      <a href="#services">Services</a>
+      <a href="#contact">Contact Us</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="center">
+      <a class="cta" href="https://wa.link/tnj1eg" target="_blank">
+        SKIP THE CHAOS. ORDER YOUR AUTO-PART
+      </a>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="feature"><h4>EASY & RESPONSIVE</h4><span class="highlight">WHATSAPP PROCUREMENT</span></div>
+    <div class="feature"><h4>DELIVERY IN 48HRS</h4><span class="highlight">COST-FREE RETURNS COVERAGE</span></div>
+    <div class="feature"><h4>QUALITY PARTS & SYSTEMS</h4><span class="highlight">SOURCED FROM PRE-VETTED SUPPLIERS</span></div>
+    <div class="feature"><h4>PRE-DELIVERY CHECKS</h4><span class="highlight">EXCELLENT PACKAGING</span></div>
+  </section>
+
+  <section class="middle" id="services">
+    <div class="map-wrap">
+      <img src="assets/partxima 3_page-0001.jpg" alt="Auto parts region map" class="map-image">
+    </div>
+    <div class="content-right">
+      <div class="eyebrow">SUPERCHARGING ACCESS TO</div>
+      <h2 class="headline">NEW & USED AUTO-PARTS IN AFRICA</h2>
+      <p class="sub">EV, GAS-POWERED VEHICLES, CONSTRUCTION EQUIPMENT, TRUCKS, TRACTORS, MOTORCYCLES, ETC.</p>
+
+      <div class="partners">
+        <h3 style="color: var(--accent); font-size: 16px; margin-bottom: 8px;">Our Partners</h3>
+        <img src="assets/partxima1-removebg-preview.png" alt="WedeyBox Logo" class="partner-logo">
+        <img src="assets/partxima3-removebg-preview.png" alt="StationFox Logo" class="partner-logo">
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL FOOTER – original style + office address added -->
+  <footer id="contact">
+    <div class="fwrap">
+      <div class="left-links">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdf7gCNfNy4e8Plp34y8IAWx7AVCly5iMNtv-oojUBDrHXglw/viewform?usp=publish-editor">› Become a PartXima Agent or Supplier in your location</a>
+        <a href="assets/partxima5.pdf" download="PartXima_FAQ.pdf">› FAQ</a>
+        <a href="https://instagram.com/partxima" target="_blank">› Get Social @PartXima (Instagram)</a>
+      </div>
+      <div class="contact">
+        <div>info@partxima.com</div>
+        <div>+234 815 513 6509</div>
+        <div style="margin-top: 10px; font-size: 13px; opacity: 0.9;">
+          Shop D8, 113 Ladipo street, Mushin, Lagos.<br>
+          Nigeria
+        </div>
+      </div>
+    </div>
+    <div class="copyright">©2025 PartXima Nigeria</div>
+  </footer>
+
+  <script>
+    const hb = document.getElementById('hb');
+    const navMenu = document.getElementById('navMenu');
+    hb.addEventListener('click', () => navMenu.classList.toggle('show'));
+    hb.addEventListener('keypress', e => { if (e.key === 'Enter') hb.click(); });
+  </script>
+</body>
+</html>
